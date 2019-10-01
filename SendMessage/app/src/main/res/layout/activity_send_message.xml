@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".SendMessageActivity">
+    tools:context=".view.SendMessageActivity">
 
     <TextView
         android:id="@+id/tvMessage"
@@ -14,13 +14,23 @@
         android:layout_height="wrap_content"
         android:text="Introduce el texto que quieras enviar"
         android:textSize="20dp"
-        android:labelFor="@id/edMessage"/>
+        android:labelFor="@id/edAuhor"
+        />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edAuhor"
+        android:hint="Autor"
+        android:layout_marginTop="34dp"
+        android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edMessage"
-        android:hint="Escribe aquí"
+        android:hint="Mensaje"
         android:layout_marginTop="34dp"
         android:inputType="text"/>
 
