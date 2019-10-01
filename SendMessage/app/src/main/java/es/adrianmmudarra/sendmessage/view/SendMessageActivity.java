@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import es.adrianmmudarra.sendmessage.model.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import es.adrianmmudarra.sendmessage.R;
 
@@ -26,6 +28,7 @@ public class SendMessageActivity extends AppCompatActivity {
     public static String MASTER_KEY = "LaFuckingClave";
     private EditText edAuthor;
     private EditText edMessage;
+    private Button btnSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,20 @@ public class SendMessageActivity extends AppCompatActivity {
     private void initialize() {
         edMessage = findViewById(R.id.edMessage);
         edAuthor = findViewById(R.id.edAuhor);
+        btnSend = findViewById(R.id.btEnviar);
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage(v);
+            }
+        });
+        btnSend.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(SendMessageActivity.this,"HAS HECHO UNA PULSACIÓN LARGA",Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
     }
 
     /**

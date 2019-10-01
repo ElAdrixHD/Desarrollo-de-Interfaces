@@ -40,7 +40,6 @@
         android:text="Enviar"
         android:id="@+id/btEnviar"
         android:layout_marginTop="25dp"
-        android:onClick="sendMessage"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package es.adrianmmudarra.sendmessage.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * <h1>Clase Message</h1>
@@ -25,7 +26,7 @@ public class Message implements Serializable {
     }
 
     public String getAuthor() {
-        return author;
+        return author + " dice: ";
     }
 
     public void setAuthor(String author) {
@@ -42,6 +43,20 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return author + " : " + message;
+        return author + " dice: " + message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return author.equals(message1.author) &&
+                message.equals(message1.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, message);
     }
 }
