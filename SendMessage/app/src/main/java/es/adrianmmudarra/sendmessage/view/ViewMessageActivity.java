@@ -3,6 +3,7 @@ package es.adrianmmudarra.sendmessage.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class ViewMessageActivity extends AppCompatActivity {
 
     private TextView tvViewMessage;
     private TextView tvViewAuthor;
+    private static String TAG = "SendMessage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,38 @@ public class ViewMessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_message);
         initialize();
         viewMessage();
+        Log.d(TAG, "onCreate");
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
     }
 
     /**
@@ -44,6 +78,8 @@ public class ViewMessageActivity extends AppCompatActivity {
          */
         tvViewMessage.setText(message.getMessage());
         tvViewAuthor.setText(message.getAuthor());
+        Log.d(TAG, "viewMessage");
+
     }
 
     /**
@@ -53,5 +89,7 @@ public class ViewMessageActivity extends AppCompatActivity {
     private void initialize() {
         tvViewMessage = findViewById(R.id.tvViewMessage);
         tvViewAuthor = findViewById(R.id.tvViewAuthor);
+        Log.d(TAG, "initialize");
+
     }
 }

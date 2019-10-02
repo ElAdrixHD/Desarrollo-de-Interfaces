@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import es.adrianmmudarra.sendmessage.model.Message;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ public class SendMessageActivity extends AppCompatActivity {
     public static String KEY_MESSAGE = "claveToWapaPaMensaje";
     public static String KEY_AUTHOR = "claveToWapaPaAutor";
     public static String MASTER_KEY = "LaFuckingClave";
+    private static String TAG = "SendMessage";
     private EditText edAuthor;
     private EditText edMessage;
     private Button btnSend;
@@ -35,6 +38,37 @@ public class SendMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
         initialize();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
     }
 
     /**
@@ -48,16 +82,43 @@ public class SendMessageActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(v);
+                if(emptyMessageOrAuthor()){
+                    sendMessage(v);
+                }else{
+                    showError("No has introducido los datos");
+                }
+
             }
         });
         btnSend.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(SendMessageActivity.this,"HAS HECHO UNA PULSACIÓN LARGA",Toast.LENGTH_LONG).show();
+                showError("HAS HECHO UNA PULSACIÓN LARGA");
                 return false;
             }
         });
+        Log.d(TAG, "initialize");
+    }
+
+    /**
+     * <h1>Metodo emptyMessageOrAuthor</h1>
+     * <p>Comprueba si los campos de mensaje o autor estan vacios. En caso afirmativo, devuelve false.</p>
+     */
+    private boolean emptyMessageOrAuthor() {
+        Log.d(TAG, "emptyMessageOrAuthor");
+        if (edAuthor.getText().toString().isEmpty() | edMessage.getText().toString().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * <h1>Metodo showError</h1>
+     * <p>Muestra un Toast con el mensaje que pases por parametro.</p>
+     */
+    private void showError(String error){
+        Toast.makeText(SendMessageActivity.this,error,Toast.LENGTH_LONG).show();
+        Log.d(TAG, "showError");
     }
 
     /**
@@ -74,6 +135,10 @@ public class SendMessageActivity extends AppCompatActivity {
         b.putString(KEY_AUTHOR,edAuthor.getText().toString());*/
         i.putExtra(MASTER_KEY,message);
 
+        Log.d(TAG, "sendMessage");
+
         startActivity(i);
     }
+
+
 }
