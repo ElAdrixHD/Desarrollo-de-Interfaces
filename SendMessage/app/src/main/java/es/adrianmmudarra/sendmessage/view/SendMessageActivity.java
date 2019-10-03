@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import es.adrianmmudarra.sendmessage.model.Message;
 
 import android.util.Log;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import es.adrianmmudarra.sendmessage.R;
 
@@ -38,37 +42,37 @@ public class SendMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
         initialize();
-        Log.d(TAG, "onCreate");
+        Logger.i("onCreate - SendMessage");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart");
+        Logger.i("onStart - SendMessage");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
+        Logger.i("onResume - SendMessage");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause");
+        Logger.i("onPause - SendMessage");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop");
+        Logger.i("onStop - SendMessage");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
+        Logger.i("onDestroy - SendMessage");
     }
 
     /**
@@ -76,15 +80,16 @@ public class SendMessageActivity extends AppCompatActivity {
      * <p>Este metodo tiene como función inicializar en la clase los objetos de la vista.</p>
      */
     private void initialize() {
+        Logger.addLogAdapter(new AndroidLogAdapter());
         edMessage = findViewById(R.id.edMessage);
         edAuthor = findViewById(R.id.edAuhor);
         btnSend = findViewById(R.id.btEnviar);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(emptyMessageOrAuthor()){
+                if (emptyMessageOrAuthor()) {
                     sendMessage(v);
-                }else{
+                } else {
                     showError("No has introducido los datos");
                 }
 
@@ -97,7 +102,7 @@ public class SendMessageActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Log.d(TAG, "initialize");
+        Logger.i("initialize - SendMessage");
     }
 
     /**
@@ -105,8 +110,8 @@ public class SendMessageActivity extends AppCompatActivity {
      * <p>Comprueba si los campos de mensaje o autor estan vacios. En caso afirmativo, devuelve false.</p>
      */
     private boolean emptyMessageOrAuthor() {
-        Log.d(TAG, "emptyMessageOrAuthor");
-        if (edAuthor.getText().toString().isEmpty() | edMessage.getText().toString().isEmpty()){
+        Logger.i("emptyMessageOrAuthor - SendMessage");
+        if (edAuthor.getText().toString().isEmpty() | edMessage.getText().toString().isEmpty()) {
             return false;
         }
         return true;
@@ -116,26 +121,27 @@ public class SendMessageActivity extends AppCompatActivity {
      * <h1>Metodo showError</h1>
      * <p>Muestra un Toast con el mensaje que pases por parametro.</p>
      */
-    private void showError(String error){
-        Toast.makeText(SendMessageActivity.this,error,Toast.LENGTH_LONG).show();
-        Log.d(TAG, "showError");
+    private void showError(String error) {
+        Toast.makeText(SendMessageActivity.this, error, Toast.LENGTH_LONG).show();
+        Logger.wtf("What a Terrible Failure");
     }
 
     /**
      * <h1>Metodo sendMessage</h1>
      * <p>Este metodo se ejecuta cuando se pulsa sobre el botón de enviar. Su funcion es guardar el mensaje en un Bundle y enviarlo a la otra activity.</p>
+     *
      * @see Bundle
      */
-    public void sendMessage(View v){
+    public void sendMessage(View v) {
         Intent i = new Intent(SendMessageActivity.this, ViewMessageActivity.class);
 
         Bundle b = new Bundle();
-        Message message = new Message(edAuthor.getText().toString(),edMessage.getText().toString());
+        Message message = new Message(edAuthor.getText().toString(), edMessage.getText().toString());
         /*b.putString(KEY_MESSAGE, edMessage.getText().toString());
         b.putString(KEY_AUTHOR,edAuthor.getText().toString());*/
-        i.putExtra(MASTER_KEY,message);
+        i.putExtra(MASTER_KEY, message);
 
-        Log.d(TAG, "sendMessage");
+        Logger.i("sendMessage - SendMessage");
 
         startActivity(i);
     }
