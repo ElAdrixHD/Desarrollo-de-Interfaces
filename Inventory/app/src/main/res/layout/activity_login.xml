@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".layout.login.LoginActivity"
+    android:background="@color/primaryLightColor"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvLoginAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/iniciar_sesion"
+        android:textSize="40dp"/>
+
+    <TextView
+        android:id="@+id/tvLoginUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Usuario:" />
+
+    <EditText
+        android:id="@+id/edLoginUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Usuario"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/tvLoginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contraseña:" />
+
+    <EditText
+        android:id="@+id/edLoginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/swLoginRemember"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Recuérdame"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnLoginRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/registrarse"
+            style="@style/TransparentButton"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLoginLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/iniciar_sesion" />
+
+</LinearLayout>
