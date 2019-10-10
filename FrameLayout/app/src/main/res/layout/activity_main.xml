@@ -12,14 +12,23 @@
         android:layout_height="match_parent"
         android:layout_gravity="top"
         android:scaleType="fitStart"
-        tools:srcCompat="@drawable/proxy" />
+        android:src="@drawable/bola"
+        tools:srcCompat="@drawable/bola" />
+
     <TextView
+        android:id="@+id/tvText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:fontFamily="serif-monospace"
+        android:text="Hello World!"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnVisibility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/btnVisible"
+        android:layout_gravity="bottom|center_horizontal"/>
 
 </FrameLayout>
