@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title40sp">40sp</dimen>
+    <dimen name="space20sp">20sp</dimen>
+    <dimen name="normalSize17sp">17sp</dimen>
+</resources>

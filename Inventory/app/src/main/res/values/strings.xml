@@ -3,4 +3,8 @@
     <string name="DescripcionLogotipo">Logotipo de la aplicacion. Son varias cajas de cartón de color marrón y delante hay un ordenador mostrando varias tareas</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="registrarse"><u>Registrarse</u></string>
+    <string name="usuario_correo">Usuario o Correo Electronico</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="recuerdame">Recuérdame</string>
+    <string name="iniciar_con_telegram">Iniciar con Telegram</string>
 </resources>

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".layout.login.LoginActivity"
-    android:background="@color/primaryLightColor"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -14,47 +13,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/iniciar_sesion"
-        android:textSize="40dp"/>
+        android:textSize="@dimen/title40sp"
+        android:layout_marginBottom="@dimen/space20sp"/>
 
     <TextView
         android:id="@+id/tvLoginUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Usuario:" />
+        android:text="@string/usuario_correo"
+        android:textSize="@dimen/normalSize17sp"/>
 
     <EditText
         android:id="@+id/edLoginUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Usuario"
-        android:inputType="textPersonName" />
+        android:hint="@string/usuario_correo"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="@dimen/space20sp" />
 
     <TextView
         android:id="@+id/tvLoginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contraseña:" />
+        android:text="@string/contrasenia"
+        android:textSize="@dimen/normalSize17sp"/>
 
     <EditText
         android:id="@+id/edLoginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword" />
+        android:hint="@string/contrasenia"
+        android:inputType="textPassword"
+        android:layout_marginBottom="@dimen/space20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/space20sp">
 
         <Switch
             android:id="@+id/swLoginRemember"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Recuérdame"
-            android:layout_weight="1"/>
+            android:text="@string/recuerdame"
+            android:layout_weight="1"
+            android:textSize="@dimen/normalSize17sp"/>
 
         <Button
             android:id="@+id/btnLoginRegister"
@@ -62,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/registrarse"
+            android:textSize="@dimen/normalSize17sp"
             style="@style/TransparentButton"/>
     </LinearLayout>
 
@@ -69,6 +76,15 @@
         android:id="@+id/btnLoginLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/iniciar_sesion" />
+        android:text="@string/iniciar_sesion"
+        android:textSize="@dimen/normalSize17sp"/>
+
+    <Button
+        android:id="@+id/btnLoginTelegram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/iniciar_con_telegram"
+        android:textSize="@dimen/normalSize17sp"
+        android:background="#0088cc"/>
 
 </LinearLayout>
