@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/secondaryDarkColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/secondaryTextColor</item>
-        <item name="colorButtonNormal">@color/secondaryColor</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -17,7 +16,6 @@
         <item name="colorAccent">@color/secondaryDarkColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textColorHint">@color/secondaryTextColor</item>
-        <item name="colorButtonNormal">@color/secondaryColor</item>
     </style>
 
     <style name="TransparentButton" parent="Widget.AppCompat.Button">

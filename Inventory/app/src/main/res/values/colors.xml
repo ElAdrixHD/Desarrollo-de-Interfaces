@@ -8,4 +8,6 @@
     <color name="secondaryDarkColor">#707070</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#bcbcbc</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="telegram">#009DCC</color>
 </resources>

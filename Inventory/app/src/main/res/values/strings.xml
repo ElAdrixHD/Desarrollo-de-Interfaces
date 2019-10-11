@@ -7,4 +7,5 @@
     <string name="contrasenia">Contraseña</string>
     <string name="recuerdame">Recuérdame</string>
     <string name="iniciar_con_telegram">Iniciar con Telegram</string>
+    <string name="o_inicia_sesion_con">O inicia sesión con...</string>
 </resources>

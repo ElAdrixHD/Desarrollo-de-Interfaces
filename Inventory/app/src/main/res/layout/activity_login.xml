@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".layout.login.LoginActivity"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="@dimen/generalPadding">
 
     <TextView
         android:id="@+id/tvLoginAppBar"
@@ -77,14 +77,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/iniciar_sesion"
-        android:textSize="@dimen/normalSize17sp"/>
+        android:layout_marginBottom="@dimen/space10sp"
+        android:background="@drawable/shape_login_button"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvLoginOtherSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/o_inicia_sesion_con"
+        android:textSize="@dimen/normalSize17sp"
+        android:layout_marginBottom="@dimen/space10sp"/>
 
     <Button
         android:id="@+id/btnLoginTelegram"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_telegram_logo"
         android:text="@string/iniciar_con_telegram"
-        android:textSize="@dimen/normalSize17sp"
-        android:background="#0088cc"/>
+        android:background="@drawable/shape_button_telegram_round"
+        android:textColor="@color/colorWhite"
+        android:layout_marginBottom="@dimen/space10sp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_google_logo"
+        android:background="@drawable/shape_button_google_round"
+        android:text="Iniciar con Google"
+        android:layout_marginBottom="@dimen/space10sp"/>
 
 </LinearLayout>
