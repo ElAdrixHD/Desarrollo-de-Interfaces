@@ -8,4 +8,10 @@
     <string name="recuerdame">Recuérdame</string>
     <string name="iniciar_con_telegram">Iniciar con Telegram</string>
     <string name="o_inicia_sesion_con">O inicia sesión con...</string>
+    <string name="inventario">Inventario</string>
+    <string name="dependencias">Dependencias</string>
+    <string name="sectores">Sectores</string>
+    <string name="productos">Productos</string>
+    <string name="perfil">Perfil</string>
+    <string name="ajustes">Ajustes</string>
 </resources>

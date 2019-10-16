@@ -14,12 +14,18 @@ import es.adrianmmudarra.inventory.layout.login.LoginActivity;
 public class SplashLayout extends AppCompatActivity {
 
     private TextView tvSplash;
+    private static final long WAIT_TIME = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_layout);
         initialize();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         goToLogin();
     }
 
@@ -32,7 +38,7 @@ public class SplashLayout extends AppCompatActivity {
                 SplashLayout.this.startActivity(mainIntent);
                 SplashLayout.this.finish();
             }
-        }, 2000);
+        }, WAIT_TIME);
 
 
     }
