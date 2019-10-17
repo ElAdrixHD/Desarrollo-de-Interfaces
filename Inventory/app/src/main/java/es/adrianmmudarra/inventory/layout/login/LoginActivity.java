@@ -9,10 +9,11 @@ import android.widget.Button;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.layout.dash.DashboardActivity;
+import es.adrianmmudarra.inventory.layout.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnLogin;
+    private Button btnLogin, btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void initialize() {
         btnLogin = findViewById(R.id.btnLoginLogin);
         btnLogin.setOnClickListener(this);
+        btnRegister = findViewById(R.id.btnLoginRegister);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
@@ -31,6 +34,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btnLoginLogin:
                 startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                break;
+            case R.id.btnLoginRegister:
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
         }
     }

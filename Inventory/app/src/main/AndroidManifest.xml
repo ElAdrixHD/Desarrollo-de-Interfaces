@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_inventory_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".layout.dash.DashboardActivity"></activity>
+        <activity android:name=".layout.register.RegisterActivity" android:theme="@style/SplashTheme"></activity>
+        <activity android:name=".layout.dash.DashboardActivity" />
         <activity
             android:name=".layout.login.LoginActivity"
             android:theme="@style/SplashTheme" />

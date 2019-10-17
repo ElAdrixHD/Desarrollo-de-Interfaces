@@ -105,7 +105,7 @@
         android:layout_marginBottom="@dimen/space10sp"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLoginGoogle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_google_logo"
