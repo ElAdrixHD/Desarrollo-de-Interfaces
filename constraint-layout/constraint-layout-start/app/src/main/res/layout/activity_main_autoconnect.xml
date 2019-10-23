@@ -7,12 +7,16 @@
     app:layout_editor_absoluteY="81dp">
 
     <ImageView
-        android:src="@drawable/singapore"
+        android:id="@+id/imageView"
         android:layout_width="184dp"
         android:layout_height="203dp"
-        app:layout_editor_absoluteX="100dp"
-        app:layout_editor_absoluteY="68dp"
-        android:id="@+id/imageView"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="68dp"
+        android:contentDescription="@string/placeholder"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/placeholder" />
+        android:src="@drawable/singapore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_editor_absoluteX="100dp"
+        app:layout_editor_absoluteY="68dp" />
 </android.support.constraint.ConstraintLayout>
