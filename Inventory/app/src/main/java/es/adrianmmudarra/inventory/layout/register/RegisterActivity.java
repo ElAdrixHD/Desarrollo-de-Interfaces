@@ -19,6 +19,7 @@ import es.adrianmmudarra.inventory.layout.dash.DashboardActivity;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,15}");
     private Button btnRegister;
     private TextInputLayout tilUsername, tilEmail, tilPassword, tilPasswordConfirm;
     private TextInputEditText edtilPassword, edtilUsername, edtilPasswordConfirm, edtilEmail;
@@ -43,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         tilUsername = findViewById(R.id.tilRegisterUsername);
         tilPasswordConfirm = findViewById(R.id.tilRegisterPassportRepeat);
     }
-
+//TODO REFACTORIZAR METODOS VALIDATE, HACERLO BIEN, AÑADIR ESTILOS A LOS ERRORES TEXTINPUT
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -61,8 +62,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean validateEmail() {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(edtilEmail.getText().toString());
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(edtilEmail.getText().toString());
+        if (edtilEmail.getText().toString().isEmpty()){
+            tilEmail.setError("Email no válido");
+            return false;
+        }
         if(matcher.find()){
+            tilEmail.setError("");
             return true;
         }else{
             tilEmail.setError("Email no válido");
@@ -71,7 +77,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean validatePassword() {
-        if (edtilPassword.getText().toString().equals(edtilPasswordConfirm.getText().toString())){
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(edtilPassword.getText().toString());
+        if (edtilPassword.getText().toString().isEmpty() | edtilPasswordConfirm.getText().toString().isEmpty()){
+            tilPassword.setError("Error en las contraseñas");
+            tilPasswordConfirm.setError("No pueden estar vacias las contraseñas");
+            return false;
+        }
+        if (edtilPassword.getText().toString().equals(edtilPasswordConfirm.getText().toString()) & matcher.find()){
+            tilPassword.setError("");
+            tilPasswordConfirm.setError("");
             return true;
         }else {
             tilPassword.setError("Las contraseñas no coinciden");
@@ -81,6 +95,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean validateUser() {
-        return true;
+        if (edtilUsername.getText().toString().isEmpty()){
+            tilUsername.setError("El usuario no puede estar vacio");
+            return false;
+        }else {
+            tilUsername.setError("");
+            return true;
+        }
     }
 }
