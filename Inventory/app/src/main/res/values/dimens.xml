@@ -6,4 +6,5 @@
     <dimen name="imgWidth40sp">40sp</dimen>
     <dimen name="generalPadding">20sp</dimen>
     <dimen name="space10sp">10sp</dimen>
+    <dimen name="letter_icon_size">56dp</dimen>
 </resources>

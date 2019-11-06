@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".layout.dash.DashboardActivity"
-    android:stretchColumns="0,1">
+    android:stretchColumns="0,1"
+    android:background="@color/primaryLightColor">
     <TableRow android:layout_weight="1">
 
         <ImageButton
