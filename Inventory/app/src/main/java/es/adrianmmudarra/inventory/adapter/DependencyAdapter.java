@@ -14,13 +14,14 @@ import java.util.ArrayList;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
+import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.DependencyViewHolder> {
 
     private ArrayList<Dependency> list;
 
     public DependencyAdapter() {
-
+        list = DependencyRepository.getInstance().getDependencies();
     }
 
     @NonNull
@@ -34,6 +35,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
     public void onBindViewHolder(@NonNull DependencyViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
         holder.description.setText(list.get(position).getDescription());
+        holder.icon.setLetter(list.get(position).getUriImage());
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Dependency {
         this.name = name;
         this.shortname = shortname;
         this.description = description;
-        UriImage = uriImage;
+        this.UriImage = uriImage;
     }
 
     public String getName() {
