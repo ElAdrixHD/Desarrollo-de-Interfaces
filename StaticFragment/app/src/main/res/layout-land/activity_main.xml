@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
+    <fragment
+        android:id="@+id/fragmentA"
+        android:name="es.adrianmmudarra.staticfragment.FragmentA"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3" />
+
+    <fragment
+        android:id="@+id/fragmentB"
+        android:name="es.adrianmmudarra.staticfragment.FragmentB"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3" />
+
+    <fragment
+        android:id="@+id/fragmentC"
+        android:name="es.adrianmmudarra.staticfragment.FragmentC"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4" />
+</LinearLayout>
