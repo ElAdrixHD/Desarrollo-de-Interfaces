@@ -26,4 +26,9 @@ public class FragmentB extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         textView = view.findViewById(R.id.tvName_fragmentB);
     }
+
+    public void setMessageSize(String text, int size) {
+        textView.setText(text);
+        textView.setTextSize(size);
+    }
 }
