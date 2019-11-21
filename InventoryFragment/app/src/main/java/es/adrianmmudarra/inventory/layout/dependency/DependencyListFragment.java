@@ -11,19 +11,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.adapter.DependencyAdapter;
+import es.adrianmmudarra.inventory.data.model.Dependency;
 
-public class DependencyListFragment extends Fragment {
+public class DependencyListFragment extends Fragment{
 
     private RecyclerView recyclerDependency;
     private DependencyAdapter adapter;
     private FloatingActionButton fabAdd;
 
-    private onAddDependencyListener listener;
+    private onManageDependencyListener listenerActivity;
+    private DependencyAdapter.onManageDependencyListener listenerAdapter;
 
     public static String TAG = "DependencyListFragment";
 
@@ -38,13 +41,13 @@ public class DependencyListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (onAddDependencyListener)context;
+        listenerActivity = (onManageDependencyListener)context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        listener = null;
+        listenerActivity = null;
     }
 
     @Nullable
@@ -61,11 +64,24 @@ public class DependencyListFragment extends Fragment {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onAddDependency();
+                listenerActivity.onManageDependency(null);
             }
         });
 
+        listenerAdapter = new DependencyAdapter.onManageDependencyListener() {
+            @Override
+            public void onEditDependencyListener(Dependency dependency) {
+                listenerActivity.onManageDependency(dependency);
+            }
+
+            @Override
+            public void onDeleteDependencyListener(Dependency d) {
+                Toast.makeText(getContext(),"Delete "+d.getName(),Toast.LENGTH_SHORT).show();
+            }
+        };
+
         adapter = new DependencyAdapter();
+        adapter.setOnManageDependencyListener(listenerAdapter);
 
         recyclerDependency.setAdapter(adapter);
         recyclerDependency.setLayoutManager(new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false));
@@ -77,7 +93,7 @@ public class DependencyListFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    interface onAddDependencyListener{
-        void onAddDependency();
+    interface onManageDependencyListener {
+        void onManageDependency(Dependency dependency);
     }
 }

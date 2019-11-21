@@ -19,6 +19,7 @@ import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.DependencyViewHolder> {
 
     private ArrayList<Dependency> list;
+    private onManageDependencyListener listener;
 
     public DependencyAdapter() {
         list = DependencyRepository.getInstance().getDependencies();
@@ -36,6 +37,12 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
         holder.name.setText(list.get(position).getName());
         holder.description.setText(list.get(position).getDescription());
         holder.icon.setLetter(list.get(position).getUriImage());
+
+        holder.bind(list.get(position),listener);
+    }
+
+    public void setOnManageDependencyListener(onManageDependencyListener listener){
+        this.listener = listener;
     }
 
     @Override
@@ -53,5 +60,27 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
             name = itemView.findViewById(R.id.tvName);
             description = itemView.findViewById(R.id.tvDescription);
         }
+
+
+        public void bind(final Dependency dependency, final onManageDependencyListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onEditDependencyListener(dependency);
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onDeleteDependencyListener(dependency);
+                    return true;
+                }
+            });
+        }
+    }
+
+    public interface onManageDependencyListener{
+        void onEditDependencyListener(Dependency dependency);
+        void onDeleteDependencyListener(Dependency d);
     }
 }

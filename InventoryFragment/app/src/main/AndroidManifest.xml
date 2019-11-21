@@ -13,18 +13,20 @@
         <activity
             android:name=".layout.register.RegisterActivity"
             android:theme="@style/SplashTheme" />
-        <activity android:name=".layout.dash.DashboardActivity" />
+        <activity android:name=".layout.dash.DashboardActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".layout.login.LoginActivity"
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".layout.splash.SplashLayout"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
