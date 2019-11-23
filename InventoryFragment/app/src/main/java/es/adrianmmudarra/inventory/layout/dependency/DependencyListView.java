@@ -2,6 +2,7 @@ package es.adrianmmudarra.inventory.layout.dependency;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.adapter.DependencyAdapter;
 import es.adrianmmudarra.inventory.data.model.Dependency;
+import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 
-public class DependencyListFragment extends Fragment{
+public class DependencyListView extends Fragment{
 
     private RecyclerView recyclerDependency;
     private DependencyAdapter adapter;
@@ -28,10 +31,10 @@ public class DependencyListFragment extends Fragment{
     private onManageDependencyListener listenerActivity;
     private DependencyAdapter.onManageDependencyListener listenerAdapter;
 
-    public static String TAG = "DependencyListFragment";
+    public static String TAG = "DependencyListView";
 
     public static Fragment newInstanced(Bundle bundle){
-        DependencyListFragment fragment = new DependencyListFragment();
+        DependencyListView fragment = new DependencyListView();
         if (bundle != null){
             fragment.setArguments(bundle);
         }
@@ -76,7 +79,19 @@ public class DependencyListFragment extends Fragment{
 
             @Override
             public void onDeleteDependencyListener(Dependency d) {
-                Toast.makeText(getContext(),"Delete "+d.getName(),Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Borrar Dependencia")
+                        .setMessage("¿Estas seguro que quieres borrar esta dependencia?\n\n"+d.getShortname())
+
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            DependencyRepository.getInstance().delete(d);
+                            onManageSuccess("Depedencia Eliminada: "+d.getShortname());
+                            adapter.notifyDataSetChanged();
+                        })
+
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(R.drawable.ic_action_warning)
+                        .show();
             }
         };
 
@@ -91,6 +106,16 @@ public class DependencyListFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    public void onManageSuccess(String message){
+        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
     }
 
     interface onManageDependencyListener {

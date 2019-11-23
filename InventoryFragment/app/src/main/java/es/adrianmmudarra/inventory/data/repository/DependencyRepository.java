@@ -1,6 +1,11 @@
 package es.adrianmmudarra.inventory.data.repository;
 
+import android.widget.ArrayAdapter;
+
+import androidx.core.content.res.TypedArrayUtils;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import es.adrianmmudarra.inventory.data.model.Dependency;
 
@@ -40,5 +45,23 @@ public class DependencyRepository {
 
     public ArrayList<Dependency> getDependencies(){
         return  list;
+    }
+
+    public boolean add(final Dependency dependency) {
+        if (list.stream().noneMatch(x-> x.getShortname().equals(dependency.getShortname()))) {
+            list.add(dependency);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean edit(Dependency dependency) {
+        delete(dependency);
+        return add(dependency);
+
+    }
+
+    public void delete(Dependency dependency) {
+        list.remove(list.stream().filter(x->x.getShortname().equals(dependency.getShortname())).findFirst().get());
     }
 }

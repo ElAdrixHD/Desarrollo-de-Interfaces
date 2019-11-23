@@ -13,6 +13,9 @@ public class Dependency implements Parcelable {
     private String inventory;
     private String UriImage;
 
+    public Dependency() {
+    }
+
     public Dependency(String name, String shortname, String description, String inventory, String uriImage) {
         this.name = name;
         this.shortname = shortname;
