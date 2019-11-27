@@ -13,6 +13,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     private DependencyManageView dependencyManageView;
 
     private DependencyManagePresenter dependencyManagePresenter;
+    private DependencyListPresenter dependencyListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,9 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
         dependencyListView = (DependencyListView)getSupportFragmentManager().findFragmentByTag(DependencyListView.TAG);
         if (dependencyListView == null)
             dependencyListView = (DependencyListView) DependencyListView.newInstanced(null);
+
+        dependencyListPresenter = new DependencyListPresenter(dependencyListView);
+        dependencyListView.setPresenter(dependencyListPresenter);
 
         getSupportFragmentManager()
                 .beginTransaction()

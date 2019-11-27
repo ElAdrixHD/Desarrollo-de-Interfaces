@@ -17,18 +17,21 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Collection;
+
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.adapter.DependencyAdapter;
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 
-public class DependencyListView extends Fragment{
+public class DependencyListView extends Fragment implements DependencyListContract.View{
 
     private RecyclerView recyclerDependency;
     private DependencyAdapter adapter;
     private FloatingActionButton fabAdd;
 
     private onManageDependencyListener listenerActivity;
+    private DependencyListContract.Presenter listenerPresenter;
     private DependencyAdapter.onManageDependencyListener listenerAdapter;
 
     public static String TAG = "DependencyListView";
@@ -116,6 +119,41 @@ public class DependencyListView extends Fragment{
 
     public void onManageSuccess(String message){
         Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showLoadingProgress() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showNoDependency() {
+
+    }
+
+    @Override
+    public void showData(Collection<Dependency> dependencies) {
+
+    }
+
+    @Override
+    public void setPresenter(DependencyListContract.Presenter presenter) {
+        this.listenerPresenter = presenter;
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void onSuccess(String message) {
+
     }
 
     interface onManageDependencyListener {

@@ -56,9 +56,14 @@ public class DependencyRepository {
     }
 
     public boolean edit(Dependency dependency) {
-        delete(dependency);
-        return add(dependency);
-
+            for (Dependency it : list) {
+                if (it.getShortname().equals(dependency.getShortname())) {
+                    it.setName(dependency.getName());
+                    it.setDescription(dependency.getDescription());
+                    return true;
+                }
+            }
+            return false;
     }
 
     public void delete(Dependency dependency) {

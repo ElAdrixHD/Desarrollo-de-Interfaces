@@ -65,6 +65,7 @@ public class RecyclerUserAdapter extends RecyclerView.Adapter<RecyclerUserAdapte
         }
     }
 
+
     @Override
     public int getItemCount() {
         return list.size();
