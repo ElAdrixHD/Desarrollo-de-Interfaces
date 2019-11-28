@@ -11,10 +11,13 @@ public interface DependencyListContract {
         void hideLoading();
         void showNoDependency();
         void showData(Collection<Dependency> dependencies);
+        void onSuccessDelete();
+
     }
 
     interface Presenter{
         void delete(Dependency dependency);
         void load();
+        void restore(Dependency dependency);
     }
 }

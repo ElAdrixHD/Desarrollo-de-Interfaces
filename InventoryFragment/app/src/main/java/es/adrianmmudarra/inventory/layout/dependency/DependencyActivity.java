@@ -23,6 +23,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     }
 
     private void initialize() {
+        setTitle("Listado de dependencias");
         dependencyListView = (DependencyListView)getSupportFragmentManager().findFragmentByTag(DependencyListView.TAG);
         if (dependencyListView == null)
             dependencyListView = (DependencyListView) DependencyListView.newInstanced(null);
@@ -38,10 +39,12 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
 
     @Override
     public void onManageDependency(Dependency dependency) {
+        setTitle("Añadir dependencia");
         Bundle b = null;
         dependencyManageView = (DependencyManageView)getSupportFragmentManager().findFragmentByTag(DependencyManageView.TAG);
         if (dependencyManageView == null){
             if (dependency != null){
+                setTitle("Modificar dependencia");
                 b = new Bundle();
                 b.putParcelable(Dependency.TAG,dependency);
             }
@@ -61,6 +64,5 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     @Override
     public void onSaveListener(String message) {
         onBackPressed();
-        dependencyListView.onManageSuccess(message);
     }
 }

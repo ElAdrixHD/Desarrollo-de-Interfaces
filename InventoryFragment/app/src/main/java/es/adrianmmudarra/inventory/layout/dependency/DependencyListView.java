@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,18 +25,24 @@ import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.adapter.DependencyAdapter;
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
+import es.adrianmmudarra.inventory.layout.base.BaseDialogFragment;
 
-public class DependencyListView extends Fragment implements DependencyListContract.View{
+public class DependencyListView extends Fragment implements DependencyListContract.View, BaseDialogFragment.OnBaseDialogListener{
 
     private RecyclerView recyclerDependency;
     private DependencyAdapter adapter;
     private FloatingActionButton fabAdd;
+    private ImageView imageView;
 
     private onManageDependencyListener listenerActivity;
     private DependencyListContract.Presenter listenerPresenter;
     private DependencyAdapter.onManageDependencyListener listenerAdapter;
+    private BaseDialogFragment baseDialogFragment;
+
+    private View loadingProgress;
 
     public static String TAG = "DependencyListView";
+    private Dependency deleted;
 
     public static Fragment newInstanced(Bundle bundle){
         DependencyListView fragment = new DependencyListView();
@@ -42,6 +50,12 @@ public class DependencyListView extends Fragment implements DependencyListContra
             fragment.setArguments(bundle);
         }
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        listenerPresenter.load();
     }
 
     @Override
@@ -67,12 +81,9 @@ public class DependencyListView extends Fragment implements DependencyListContra
         super.onViewCreated(view, savedInstanceState);
         recyclerDependency = view.findViewById(R.id.recyclerDependency);
         fabAdd = view.findViewById(R.id.fabDependencyListAdd);
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listenerActivity.onManageDependency(null);
-            }
-        });
+        fabAdd.setOnClickListener(v -> listenerActivity.onManageDependency(null));
+        imageView = view.findViewById(R.id.ivDependencyList);
+        loadingProgress = view.findViewById(R.id.fragmentLoadingDependencyList);
 
         listenerAdapter = new DependencyAdapter.onManageDependencyListener() {
             @Override
@@ -82,19 +93,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
             @Override
             public void onDeleteDependencyListener(Dependency d) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Borrar Dependencia")
-                        .setMessage("¿Estas seguro que quieres borrar esta dependencia?\n\n"+d.getShortname())
-
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                            DependencyRepository.getInstance().delete(d);
-                            onManageSuccess("Depedencia Eliminada: "+d.getShortname());
-                            adapter.notifyDataSetChanged();
-                        })
-
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(R.drawable.ic_action_warning)
-                        .show();
+                showDialogDelete(d);
             }
         };
 
@@ -103,6 +102,16 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
         recyclerDependency.setAdapter(adapter);
         recyclerDependency.setLayoutManager(new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false));
+    }
+
+    private void showDialogDelete(Dependency d) {
+        Bundle b = new Bundle();
+        b.putString(BaseDialogFragment.TITLE,"Borrar Dependencia");
+        b.putString(BaseDialogFragment.MESSAGE,"¿Estas seguro de que quieres borrar esta dependencia? -> "+d.getShortname());
+        baseDialogFragment = BaseDialogFragment.getInstance(b);
+        baseDialogFragment.setTargetFragment(DependencyListView.this,300);
+        baseDialogFragment.show(getFragmentManager(),BaseDialogFragment.TAG);
+        deleted = d;
     }
 
     @Override
@@ -114,31 +123,41 @@ public class DependencyListView extends Fragment implements DependencyListContra
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().setTitle("Listado de dependencias");
         adapter.notifyDataSetChanged();
-    }
-
-    public void onManageSuccess(String message){
-        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void showLoadingProgress() {
-
+        loadingProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-
+        loadingProgress.setVisibility(View.GONE);
     }
 
     @Override
     public void showNoDependency() {
-
+        imageView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showData(Collection<Dependency> dependencies) {
+        adapter.clear();
+        adapter.addAll(dependencies);
+        adapter.notifyDataSetChanged();
+        imageView.setVisibility(View.GONE);
+        deleted = null;
+    }
 
+    @Override
+    public void onSuccessDelete() {
+        adapter.delete(deleted);
+        adapter.notifyDataSetChanged();
+        Snackbar.make(getView(),"Dependencia Eliminada",Snackbar.LENGTH_SHORT).setAction("ANULAR", v -> {
+            listenerPresenter.restore(deleted);
+        }).show();
     }
 
     @Override
@@ -148,12 +167,21 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
     @Override
     public void showError(String error) {
-
+        Snackbar.make(getView(),error,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccess(String message) {
+    }
 
+    @Override
+    public void onAccept() {
+        listenerPresenter.delete(deleted);
+    }
+
+    @Override
+    public void onCancel() {
+        baseDialogFragment.dismiss();
     }
 
     interface onManageDependencyListener {

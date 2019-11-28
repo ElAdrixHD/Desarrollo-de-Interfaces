@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
-import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.DependencyViewHolder> {
 
@@ -22,7 +22,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
     private onManageDependencyListener listener;
 
     public DependencyAdapter() {
-        list = DependencyRepository.getInstance().getDependencies();
+        list = new ArrayList<>();
     }
 
     @NonNull
@@ -48,6 +48,18 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void clear() {
+        this.list.clear();
+    }
+
+    public void addAll(Collection<Dependency> dependencies) {
+        this.list.addAll(dependencies);
+    }
+
+    public void delete(Dependency deleted) {
+        this.list.remove(deleted);
     }
 
     class DependencyViewHolder extends RecyclerView.ViewHolder{
