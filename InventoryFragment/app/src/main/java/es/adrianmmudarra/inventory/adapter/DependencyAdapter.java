@@ -75,18 +75,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
 
 
         public void bind(final Dependency dependency, final onManageDependencyListener listener) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onEditDependencyListener(dependency);
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    listener.onDeleteDependencyListener(dependency);
-                    return true;
-                }
+            itemView.setOnClickListener(v -> listener.onEditDependencyListener(dependency));
+            itemView.setOnLongClickListener(v -> {
+                listener.onDeleteDependencyListener(dependency);
+                return true;
             });
         }
     }

@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_inventory_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".layout.dependency.DependencyActivity"></activity>
+        <activity android:name=".layout.sector.SectorActivity"></activity>
+        <activity android:name=".layout.dependency.DependencyActivity" />
         <activity
             android:name=".layout.register.RegisterActivity"
             android:theme="@style/SplashTheme" />
-        <activity android:name=".layout.dash.DashboardActivity" >
+        <activity android:name=".layout.dash.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,9 +26,7 @@
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".layout.splash.SplashLayout"
-            android:theme="@style/SplashTheme">
-
-        </activity>
+            android:theme="@style/SplashTheme"></activity>
     </application>
 
 </manifest>

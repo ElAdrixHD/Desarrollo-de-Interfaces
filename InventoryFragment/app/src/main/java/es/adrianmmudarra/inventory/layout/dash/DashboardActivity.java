@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.layout.dependency.DependencyActivity;
+import es.adrianmmudarra.inventory.layout.sector.SectorActivity;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,6 +25,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private void initialize() {
         btnDependency = findViewById(R.id.btnDashDependency);
         btnDependency.setOnClickListener(this);
+        btnSectors = findViewById(R.id.btnDashSectors);
+        btnSectors.setOnClickListener(this);
     }
 
     @Override
@@ -31,6 +34,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()){
             case R.id.btnDashDependency:
                 startActivity(new Intent(DashboardActivity.this, DependencyActivity.class));
+                break;
+            case R.id.btnDashSectors:
+                startActivity(new Intent(DashboardActivity.this, SectorActivity.class));
                 break;
                 default:
                     break;

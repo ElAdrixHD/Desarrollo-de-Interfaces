@@ -69,4 +69,8 @@ public class DependencyRepository {
     public boolean delete(Dependency dependency) {
         return list.remove(list.stream().filter(x->x.getShortname().equals(dependency.getShortname())).findFirst().get());
     }
+
+    public Dependency get(int pos) {
+        return list.get(pos);
+    }
 }

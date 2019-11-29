@@ -25,16 +25,16 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     private void initialize() {
         setTitle("Listado de dependencias");
         dependencyListView = (DependencyListView)getSupportFragmentManager().findFragmentByTag(DependencyListView.TAG);
-        if (dependencyListView == null)
+        if (dependencyListView == null){
             dependencyListView = (DependencyListView) DependencyListView.newInstanced(null);
 
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(android.R.id.content, dependencyListView, DependencyListView.TAG)
+                    .commit();
+        }
         dependencyListPresenter = new DependencyListPresenter(dependencyListView);
         dependencyListView.setPresenter(dependencyListPresenter);
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(android.R.id.content, dependencyListView, DependencyListView.TAG)
-                .commit();
     }
 
     @Override
@@ -49,16 +49,17 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
                 b.putParcelable(Dependency.TAG,dependency);
             }
             dependencyManageView = (DependencyManageView) DependencyManageView.newInstance(b);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(android.R.id.content, dependencyManageView, DependencyManageView.TAG)
+                    .addToBackStack(null)
+                    .commit();
         }
 
         dependencyManagePresenter = new DependencyManagePresenter(dependencyManageView);
         dependencyManageView.setPresenter(dependencyManagePresenter);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(android.R.id.content, dependencyManageView, DependencyManageView.TAG)
-                .addToBackStack(null)
-                .commit();
     }
 
     @Override

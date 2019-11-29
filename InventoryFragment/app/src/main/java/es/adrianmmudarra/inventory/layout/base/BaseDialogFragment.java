@@ -27,8 +27,6 @@ public class BaseDialogFragment extends DialogFragment {
         return baseDialogFragment;
     }
 
-
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
