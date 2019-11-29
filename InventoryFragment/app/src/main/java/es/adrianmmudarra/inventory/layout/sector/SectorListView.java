@@ -70,6 +70,12 @@ public class SectorListView extends Fragment implements SectorListContract.View,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Listado sectores");
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerSectorList);
@@ -82,7 +88,7 @@ public class SectorListView extends Fragment implements SectorListContract.View,
         sectorAdapter.setViewListener(new SectorAdapter.SectorAdapterListener() {
             @Override
             public void onClickSectorAdapter(Sector sector) {
-                Toast.makeText(getContext(),"Edit",Toast.LENGTH_SHORT).show();
+                activityListener.onAddEditSector(sector);
             }
 
             @Override
@@ -137,13 +143,13 @@ public class SectorListView extends Fragment implements SectorListContract.View,
         sectorAdapter.clear();
         sectorAdapter.addAll(sectors);
         sectorAdapter.notifyDataSetChanged();
+        deleted = null;
     }
 
     @Override
     public void onSuccessDelete(Sector sector) {
         sectorAdapter.deleteSector(sector);
         sectorAdapter.notifyDataSetChanged();
-        deleted = null;
     }
 
     @Override
@@ -153,7 +159,7 @@ public class SectorListView extends Fragment implements SectorListContract.View,
 
     @Override
     public void showDeleteMessage(String message) {
-        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).setAction(android.R.string.cancel, v -> presenter.undoDelete(deleted)).show();
     }
 
     @Override

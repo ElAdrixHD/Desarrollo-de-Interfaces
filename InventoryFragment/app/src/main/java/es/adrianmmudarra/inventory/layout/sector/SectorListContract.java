@@ -19,5 +19,6 @@ public interface SectorListContract{
     interface Presenter{
         void loadData();
         void deleteSector(Sector sector);
+        void undoDelete(Sector sector);
     }
 }

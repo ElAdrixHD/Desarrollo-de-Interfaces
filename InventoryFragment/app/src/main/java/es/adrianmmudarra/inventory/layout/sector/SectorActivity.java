@@ -7,11 +7,13 @@ import android.os.Bundle;
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Sector;
 
-public class SectorActivity extends AppCompatActivity implements SectorListView.OnSectorListViewListener{
+public class SectorActivity extends AppCompatActivity implements SectorListView.OnSectorListViewListener, SectorManageView.OnSectorManageListener{
 
     private SectorListView sectorListView;
+    private SectorManageView sectorManageView;
 
     private SectorListPresenter sectorListPresenter;
+    private SectorManagePresenter sectorManagePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,29 @@ public class SectorActivity extends AppCompatActivity implements SectorListView.
 
     @Override
     public void onAddEditSector(Sector sector) {
+        Bundle bundle = null;
+        sectorManageView = (SectorManageView) getSupportFragmentManager().findFragmentByTag(SectorManageView.TAG);
+        if (sectorManageView == null){
+            setTitle("Añadir sector");
+            if (sector !=null){
+                setTitle("Modificar sector");
+                bundle = new Bundle();
+                bundle.putParcelable("sector",sector);
+            }
+            sectorManageView = SectorManageView.newInstance(bundle);
 
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(android.R.id.content,sectorManageView,SectorManageView.TAG)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        sectorManagePresenter = new SectorManagePresenter(sectorManageView);
+        sectorManageView.setPresenter(sectorManagePresenter);
+    }
+
+    @Override
+    public void onSave() {
+        onBackPressed();
     }
 }

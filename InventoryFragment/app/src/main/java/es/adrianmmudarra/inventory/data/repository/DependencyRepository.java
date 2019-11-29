@@ -73,4 +73,16 @@ public class DependencyRepository {
     public Dependency get(int pos) {
         return list.get(pos);
     }
+
+    public int getPositionDependency(Dependency dependency) {
+        int i = 0;
+
+        for (Dependency s : list){
+            if (s.getShortname().equals(dependency.getShortname())){
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
 }

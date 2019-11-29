@@ -40,4 +40,16 @@ public class SectorRepository {
     public boolean removeSector(Sector sector){
         return this.sectors.remove(sector);
     }
+
+    public boolean edit(Sector sector) {
+        for (Sector it : sectors) {
+            if (it.getShortname().equals(sector.getShortname())) {
+                it.setName(sector.getName());
+                it.setDescription(sector.getDescription());
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

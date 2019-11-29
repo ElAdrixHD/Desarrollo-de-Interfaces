@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 
 import es.adrianmmudarra.inventory.data.model.Sector;
+import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 import es.adrianmmudarra.inventory.data.repository.SectorRepository;
 
 public class SectorListPresenter implements SectorListContract.Presenter {
@@ -53,10 +54,19 @@ public class SectorListPresenter implements SectorListContract.Presenter {
     @Override
     public void deleteSector(Sector sector) {
         if (SectorRepository.getInstance().removeSector(sector)){
-            view.onSuccessDelete(sector);
             view.showDeleteMessage("Sector Eliminado: "+sector.getShortname());
+            view.onSuccessDelete(sector);
         }else {
             view.showError("No se ha podido eliminar el sector: "+sector.getShortname());
+        }
+    }
+
+    @Override
+    public void undoDelete(Sector sector) {
+        if (SectorRepository.getInstance().addSector(sector)){
+            view.refeshData(SectorRepository.getInstance().getSectors());
+        }else {
+            view.showError("No se ha podido recuperar");
         }
     }
 }
