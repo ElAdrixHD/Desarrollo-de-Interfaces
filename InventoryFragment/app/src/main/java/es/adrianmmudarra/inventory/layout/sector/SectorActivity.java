@@ -6,8 +6,9 @@ import android.os.Bundle;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Sector;
+import es.adrianmmudarra.inventory.layout.base.BaseActivity;
 
-public class SectorActivity extends AppCompatActivity implements SectorListView.OnSectorListViewListener, SectorManageView.OnSectorManageListener{
+public class SectorActivity extends BaseActivity implements SectorListView.OnSectorListViewListener, SectorManageView.OnSectorManageListener{
 
     private SectorListView sectorListView;
     private SectorManageView sectorManageView;

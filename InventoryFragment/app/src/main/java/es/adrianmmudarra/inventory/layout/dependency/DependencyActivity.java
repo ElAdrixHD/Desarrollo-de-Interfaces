@@ -1,13 +1,19 @@
 package es.adrianmmudarra.inventory.layout.dependency;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
+import es.adrianmmudarra.inventory.layout.base.BaseActivity;
 
-public class DependencyActivity extends AppCompatActivity implements DependencyListView.onManageDependencyListener, DependencyManageView.onSaveListener {
+public class DependencyActivity extends BaseActivity implements DependencyListView.onManageDependencyListener, DependencyManageView.onSaveListener {
 
     private DependencyListView dependencyListView;
     private DependencyManageView dependencyManageView;
