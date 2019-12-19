@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/action_menu_item_dependency" android:title="@string/dependencias" android:icon="@drawable/dependency"/>
+        <item android:id="@+id/action_menu_item_product" android:title="@string/productos" android:icon="@drawable/product"/>
+        <item android:id="@+id/action_menu_item_sector" android:title="@string/sectores" android:icon="@drawable/sector"/>
+    </group>
+    <item android:title="@string/ajustes">
+        <menu>
+            <item
+                android:id="@+id/btnMenuAboutMe"
+                android:title="@string/sobre_m" />
+            <item
+                android:id="@+id/btnMenuSettings"
+                android:title="@string/ajustes" />
+            <item
+                android:id="@+id/btnMenuHelp"
+                android:title="@string/ayuda" />
+        </menu>
+    </item>
+
+</menu>

@@ -94,17 +94,5 @@
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDependencyManageSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@drawable/ic_action_save"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:elevation="6dp"
-        android:backgroundTint="@color/primaryDarkColor"
-        android:tint="@color/primaryTextColor"/>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

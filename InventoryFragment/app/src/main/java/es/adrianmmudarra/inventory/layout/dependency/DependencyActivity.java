@@ -24,7 +24,6 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dependency);
         initialize();
     }
 
@@ -36,7 +35,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(android.R.id.content, dependencyListView, DependencyListView.TAG)
+                    .add(R.id.content, dependencyListView, DependencyListView.TAG)
                     .commit();
         }
         dependencyListPresenter = new DependencyListPresenter(dependencyListView);
@@ -58,7 +57,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(android.R.id.content, dependencyManageView, DependencyManageView.TAG)
+                    .replace(R.id.content, dependencyManageView, DependencyManageView.TAG)
                     .addToBackStack(null)
                     .commit();
         }

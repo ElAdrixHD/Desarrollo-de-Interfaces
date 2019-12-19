@@ -53,6 +53,12 @@ public class DependencyManageView extends Fragment implements DependencyManageCo
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        fabSave.setImageResource(R.drawable.ic_action_save);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -72,7 +78,7 @@ public class DependencyManageView extends Fragment implements DependencyManageCo
         if (getArguments()!= null){
             tiledShortName.setEnabled(false);
         }
-        fabSave = view.findViewById(R.id.fabDependencyManageSave);
+        fabSave = getActivity().findViewById(R.id.fabDependencyListAdd);
         fabSave.setOnClickListener(v -> {
             if (presenter.isValidDependency(tiledName.getText().toString(),tiledShortName.getText().toString(),tiledDescription.getText().toString())){
                 Dependency d = getDependency();

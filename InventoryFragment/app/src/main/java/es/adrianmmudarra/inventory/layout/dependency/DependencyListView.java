@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
@@ -60,6 +61,8 @@ public class DependencyListView extends Fragment implements DependencyListContra
         listenerPresenter.load();
     }
 
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -82,7 +85,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerDependency = view.findViewById(R.id.recyclerDependency);
-        fabAdd = view.findViewById(R.id.fabDependencyListAdd);
+        fabAdd = getActivity().findViewById(R.id.fabDependencyListAdd);
         fabAdd.setOnClickListener(v -> listenerActivity.onManageDependency(null));
         imageView = view.findViewById(R.id.ivDependencyList);
         loadingProgress = view.findViewById(R.id.fragmentLoadingDependencyList);
@@ -103,7 +106,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
         adapter.setOnManageDependencyListener(listenerAdapter);
 
         recyclerDependency.setAdapter(adapter);
-        recyclerDependency.setLayoutManager(new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false));
+        recyclerDependency.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void showDialogDelete(Dependency d) {
@@ -134,6 +137,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
         super.onResume();
         getActivity().setTitle("Listado de dependencias");
         adapter.notifyDataSetChanged();
+        fabAdd.setImageResource(R.drawable.ic_action_add);
     }
 
     @Override
