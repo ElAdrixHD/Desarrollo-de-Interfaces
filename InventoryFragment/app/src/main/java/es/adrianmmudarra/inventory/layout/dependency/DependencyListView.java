@@ -2,13 +2,10 @@ package es.adrianmmudarra.inventory.layout.dependency;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +23,6 @@ import java.util.Collection;
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.adapter.DependencyAdapter;
 import es.adrianmmudarra.inventory.data.model.Dependency;
-import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 import es.adrianmmudarra.inventory.layout.base.BaseDialogFragment;
 
 public class DependencyListView extends Fragment implements DependencyListContract.View, BaseDialogFragment.OnBaseDialogListener{
@@ -85,7 +80,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerDependency = view.findViewById(R.id.recyclerDependency);
-        fabAdd = getActivity().findViewById(R.id.fabDependencyListAdd);
+        fabAdd = getActivity().findViewById(R.id.fabBaseActivity);
         fabAdd.setOnClickListener(v -> listenerActivity.onManageDependency(null));
         imageView = view.findViewById(R.id.ivDependencyList);
         loadingProgress = view.findViewById(R.id.fragmentLoadingDependencyList);

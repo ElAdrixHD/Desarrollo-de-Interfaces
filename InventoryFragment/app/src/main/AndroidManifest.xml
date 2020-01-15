@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".layout.sector.SectorActivity"></activity>
+        <activity android:name=".layout.product.ProductActivity"></activity>
         <activity android:name=".layout.dependency.DependencyActivity" />
         <activity
             android:name=".layout.register.RegisterActivity"

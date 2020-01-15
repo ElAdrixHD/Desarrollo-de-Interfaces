@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.layout.dependency.DependencyActivity;
+import es.adrianmmudarra.inventory.layout.product.ProductActivity;
 import es.adrianmmudarra.inventory.layout.sector.SectorActivity;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,6 +26,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private void initialize() {
         btnDependency = findViewById(R.id.btnDashDependency);
         btnDependency.setOnClickListener(this);
+        btnProducts = findViewById(R.id.btnDashProducts);
+        btnProducts.setOnClickListener(this);
         btnSectors = findViewById(R.id.btnDashSectors);
         btnSectors.setOnClickListener(this);
     }
@@ -37,6 +40,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btnDashSectors:
                 startActivity(new Intent(DashboardActivity.this, SectorActivity.class));
+                break;
+            case R.id.btnDashProducts:
+                startActivity(new Intent(DashboardActivity.this, ProductActivity.class));
                 break;
                 default:
                     break;

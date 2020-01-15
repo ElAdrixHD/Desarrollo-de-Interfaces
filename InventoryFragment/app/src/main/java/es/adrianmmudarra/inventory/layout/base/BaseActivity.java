@@ -3,6 +3,7 @@ package es.adrianmmudarra.inventory.layout.base;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.GridLayout;
 import android.widget.Toast;
@@ -34,29 +35,28 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpNavegationView();
 
     }
 
     private void setUpNavegationView(){
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.btnMenuAboutMe:
-                        Toast.makeText(BaseActivity.this, "About Me", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.btnMenuHelp:
-                        Toast.makeText(BaseActivity.this, "Ayuda", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.btnMenuSettings:
-                        Toast.makeText(BaseActivity.this, "Settings", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-            }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()){
+                case R.id.btnMenuAboutMe:
+                    Toast.makeText(BaseActivity.this, "About Me", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btnMenuHelp:
+                    Toast.makeText(BaseActivity.this, "Ayuda", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btnMenuSettings:
+                    Toast.makeText(BaseActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(BaseActivity.this, "default", Toast.LENGTH_SHORT).show();
+                    break;
         }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
     });
     }
 

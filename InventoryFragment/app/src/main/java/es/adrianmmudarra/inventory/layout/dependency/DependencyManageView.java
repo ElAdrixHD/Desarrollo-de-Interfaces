@@ -1,7 +1,6 @@
 package es.adrianmmudarra.inventory.layout.dependency;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,7 +77,7 @@ public class DependencyManageView extends Fragment implements DependencyManageCo
         if (getArguments()!= null){
             tiledShortName.setEnabled(false);
         }
-        fabSave = getActivity().findViewById(R.id.fabDependencyListAdd);
+        fabSave = getActivity().findViewById(R.id.fabBaseActivity);
         fabSave.setOnClickListener(v -> {
             if (presenter.isValidDependency(tiledName.getText().toString(),tiledShortName.getText().toString(),tiledDescription.getText().toString())){
                 Dependency d = getDependency();

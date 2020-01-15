@@ -34,4 +34,9 @@
     <string name="buscar">Buscar</string>
     <string name="compartir">Compartir</string>
     <string name="home">Home</string>
+    <string name="adrian_mu_oz">Adrian Muñoz</string>
+    <string name="eladrixhd_gmail_com">eladrixhd@gmail.com</string>
+    <string name="info">Info</string>
+    <string name="description">Description</string>
+    <string name="map">Map</string>
 </resources>

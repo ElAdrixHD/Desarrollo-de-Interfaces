@@ -1,13 +1,6 @@
 package es.adrianmmudarra.inventory.layout.dependency;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
@@ -35,7 +28,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.content, dependencyListView, DependencyListView.TAG)
+                    .add(R.id.myContent, dependencyListView, DependencyListView.TAG)
                     .commit();
         }
         dependencyListPresenter = new DependencyListPresenter(dependencyListView);
@@ -57,7 +50,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content, dependencyManageView, DependencyManageView.TAG)
+                    .replace(R.id.myContent, dependencyManageView, DependencyManageView.TAG)
                     .addToBackStack(null)
                     .commit();
         }
