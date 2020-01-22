@@ -3,6 +3,7 @@ package es.adrianmmudarra.inventory.layout.sector;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.data.model.Sector;
@@ -10,7 +11,7 @@ import es.adrianmmudarra.inventory.layout.base.BaseView;
 
 public interface SectorManageContract {
     interface View extends BaseView<Presenter> {
-        void onSuccessLoadSpinner(ArrayList<Dependency> dependencies);
+        void onSuccessLoadSpinner(Collection<Dependency> dependencies);
         void onErrorLoadSpinner(String error);
         void onErrorValidate(String error);
 

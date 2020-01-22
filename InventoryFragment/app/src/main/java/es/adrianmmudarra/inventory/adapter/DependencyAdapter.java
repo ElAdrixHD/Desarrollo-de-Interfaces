@@ -12,17 +12,18 @@ import com.github.ivbaranov.mli.MaterialLetterIcon;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
 
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.DependencyViewHolder> {
 
-    private ArrayList<Dependency> list;
+    private List<Dependency> list;
     private onManageDependencyListener listener;
 
-    public DependencyAdapter() {
-        list = new ArrayList<>();
+    public DependencyAdapter(List<Dependency> dependencies) {
+        list = dependencies;
     }
 
     @NonNull

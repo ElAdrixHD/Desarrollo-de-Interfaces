@@ -93,7 +93,7 @@ public class DependencyManageView extends Fragment implements DependencyManageCo
 
         if (getArguments() != null){
             Dependency d  = getArguments().getParcelable(Dependency.TAG);
-            tiledShortName.setText(d.getShortname());
+            tiledShortName.setText(d.getShortName());
             tiledName.setText(d.getName());
             tiledDescription.setText(d.getDescription());
             switch (d.getInventory()){
@@ -113,7 +113,7 @@ public class DependencyManageView extends Fragment implements DependencyManageCo
     private Dependency getDependency() {
         Dependency dependency = new Dependency();
         dependency.setName(tiledName.getText().toString());
-        dependency.setShortname(tiledShortName.getText().toString());
+        dependency.setShortName(tiledShortName.getText().toString());
         dependency.setDescription(tiledDescription.getText().toString());
         dependency.setInventory(spinner.getSelectedItem().toString());
         return dependency;

@@ -14,7 +14,7 @@ public class DependencyManagePresenter implements DependencyManageContract.Prese
     @Override
     public void edit(Dependency dependency) {
         if (DependencyRepository.getInstance().edit(dependency))
-            view.onSuccess("Dependencia Editada: "+dependency.getShortname());
+            view.onSuccess("Dependencia Editada: "+dependency.getShortName());
         else
             view.showError("No se ha podido editar la dependencia");
     }
@@ -22,7 +22,7 @@ public class DependencyManagePresenter implements DependencyManageContract.Prese
     @Override
     public void add(Dependency dependency) {
         if (DependencyRepository.getInstance().add(dependency)){
-            view.onSuccess("Dependencia Añadida: "+ dependency.getShortname());
+            view.onSuccess("Dependencia Añadida: "+ dependency.getShortName());
         }else {
             view.showError("No se puede añadir la dependencia.");
         }

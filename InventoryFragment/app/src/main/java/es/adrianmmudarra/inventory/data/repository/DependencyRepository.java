@@ -1,39 +1,28 @@
 package es.adrianmmudarra.inventory.data.repository;
 
+import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 
 import androidx.core.content.res.TypedArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import es.adrianmmudarra.inventory.data.InventoryDatabase;
+import es.adrianmmudarra.inventory.data.dao.DependencyDao;
 import es.adrianmmudarra.inventory.data.model.Dependency;
 
 public class DependencyRepository {
     private static DependencyRepository instance;
-    private ArrayList<Dependency> list;
+    private DependencyDao dependencyDao;
 
     /*static {
         instance = new DependencyRepository();
     }*/
 
     public DependencyRepository() {
-        initialice();
-    }
-
-    private void initialice() {
-        list = new ArrayList<>();
-        list.add(new Dependency("2º Ciclo de Grado Superior", "2ºCFGS", "Aula de informatica","2018","S"));
-        list.add(new Dependency("1º Ciclo de Grado Superior", "1ºCFGS", "Aula de informatica","2019","S"));
-        list.add(new Dependency("2º Ciclo de Grado Medio", "2ºCFGM", "Aula de informatica","2019","M"));
-        list.add(new Dependency("1º Ciclo de Grado Medio", "1ºCFGM", "Aula de informatica","2020","M"));
-        list.add(new Dependency("4º ESO", "4ºESO", "ESO","2020","E"));
-        list.add(new Dependency("3º ESO", "3ºESO", "ESO","2019","E"));
-        list.add(new Dependency("2º ESO", "2ºESO", "ESO","2019","E"));
-        list.add(new Dependency("1º ESO", "1ºESO", "ESO","2019","E"));
-        list.add(new Dependency("2º Bachillerato", "2ºBACH", "Bachillerato","2018","B"));
-        list.add(new Dependency("1º Bachillerato", "1ºBACH", "Bachillerato","2018","B"));
-
+        dependencyDao = InventoryDatabase.getDatabase().dependencyDao();
     }
 
     public static DependencyRepository getInstance(){
@@ -43,46 +32,55 @@ public class DependencyRepository {
         return instance;
     }
 
-    public ArrayList<Dependency> getDependencies(){
-        return  list;
+    public List<Dependency> getDependencies(){
+        try {
+            return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean add(final Dependency dependency) {
-        if (list.stream().noneMatch(x-> x.getShortname().equals(dependency.getShortname()))) {
-            list.add(dependency);
-            return true;
-        }
-        return false;
+        InventoryDatabase.databaseWriteExecutor.execute(() -> dependencyDao.insert(dependency));
+        return true;
     }
 
-    public boolean edit(Dependency dependency) {
-            for (Dependency it : list) {
-                if (it.getShortname().equals(dependency.getShortname())) {
-                    it.setName(dependency.getName());
-                    it.setDescription(dependency.getDescription());
-                    return true;
-                }
-            }
-            return false;
+    public boolean edit(final Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute(()->dependencyDao.update(dependency));
+        return true;
+
     }
 
-    public boolean delete(Dependency dependency) {
-        return list.remove(list.stream().filter(x->x.getShortname().equals(dependency.getShortname())).findFirst().get());
+    public boolean delete(final Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute(()->dependencyDao.delete(dependency));
+        return true;
     }
 
-    public Dependency get(int pos) {
-        return list.get(pos);
+    public boolean update(final Dependency dependency){
+        InventoryDatabase.databaseWriteExecutor.execute(()->dependencyDao.update(dependency));
+        return true;
     }
 
     public int getPositionDependency(Dependency dependency) {
-        int i = 0;
-
-        for (Dependency s : list){
-            if (s.getShortname().equals(dependency.getShortname())){
-                return i;
+        List<Dependency> list = dependencyDao.getAll();
+        int pos = 0;
+        for (Dependency d: list) {
+            if (d.equals(dependency)){
+                return pos;
             }
-            i++;
+            pos++;
         }
         return -1;
+    }
+
+    private class QueryAsyncTask extends AsyncTask<Void,Void,List>{
+
+        @Override
+        protected List doInBackground(Void... voids) {
+            return dependencyDao.getAll();
+        }
     }
 }

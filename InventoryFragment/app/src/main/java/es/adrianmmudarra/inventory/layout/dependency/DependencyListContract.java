@@ -1,6 +1,7 @@
 package es.adrianmmudarra.inventory.layout.dependency;
 
 import java.util.Collection;
+import java.util.List;
 
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.layout.base.BaseView;
@@ -19,5 +20,6 @@ public interface DependencyListContract {
         void delete(Dependency dependency);
         void load();
         void restore(Dependency dependency);
+        List<Dependency> getRepo();
     }
 }

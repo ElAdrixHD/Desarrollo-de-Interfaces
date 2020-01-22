@@ -97,7 +97,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
             }
         };
 
-        adapter = new DependencyAdapter();
+        adapter = new DependencyAdapter(listenerPresenter.getRepo());
         adapter.setOnManageDependencyListener(listenerAdapter);
 
         recyclerDependency.setAdapter(adapter);
@@ -107,7 +107,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
     private void showDialogDelete(Dependency d) {
         Bundle b = new Bundle();
         b.putString(BaseDialogFragment.TITLE,"Borrar Dependencia");
-        b.putString(BaseDialogFragment.MESSAGE,"¿Estas seguro de que quieres borrar esta dependencia? -> "+d.getShortname());
+        b.putString(BaseDialogFragment.MESSAGE,"¿Estas seguro de que quieres borrar esta dependencia? -> "+d.getShortName());
         baseDialogFragment = BaseDialogFragment.getInstance(b);
         baseDialogFragment.setTargetFragment(DependencyListView.this,300);
         baseDialogFragment.show(getFragmentManager(),BaseDialogFragment.TAG);
@@ -152,8 +152,8 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
     @Override
     public void showData(Collection<Dependency> dependencies) {
-        adapter.clear();
-        adapter.addAll(dependencies);
+        //adapter.clear();
+        //adapter.addAll(dependencies);
         adapter.notifyDataSetChanged();
         imageView.setVisibility(View.GONE);
         deleted = null;
@@ -161,7 +161,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
     @Override
     public void onSuccessDelete() {
-        adapter.delete(deleted);
+        //adapter.delete(deleted);
         adapter.notifyDataSetChanged();
         Snackbar.make(getView(),"Dependencia Eliminada",Snackbar.LENGTH_SHORT).setAction("ANULAR", v -> {
             listenerPresenter.restore(deleted);

@@ -3,33 +3,47 @@ package es.adrianmmudarra.inventory.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
+@Entity
 public class Dependency implements Parcelable {
+    @Ignore
     public static final String TAG = "dependency";
+    @NonNull
     private String name;
-    private String shortname;
+    @PrimaryKey
+    @NonNull
+    private String shortName;
+    @NonNull
     private String description;
+    @NonNull
     private String inventory;
-    private String UriImage;
+    private String uriImage;
 
+    @Ignore
     public Dependency() {
     }
 
-    public Dependency(String name, String shortname, String description, String inventory, String uriImage) {
+    public Dependency(String name, String shortName, String description, String inventory, String uriImage) {
         this.name = name;
-        this.shortname = shortname;
+        this.shortName = shortName;
         this.description = description;
         this.inventory = inventory;
-        this.UriImage = uriImage;
+        this.uriImage = uriImage;
     }
 
+    @Ignore
     protected Dependency(Parcel in) {
         name = in.readString();
-        shortname = in.readString();
+        shortName = in.readString();
         description = in.readString();
         inventory = in.readString();
-        UriImage = in.readString();
+        uriImage = in.readString();
     }
 
     public static final Creator<Dependency> CREATOR = new Creator<Dependency>() {
@@ -52,12 +66,12 @@ public class Dependency implements Parcelable {
         this.name = name;
     }
 
-    public String getShortname() {
-        return shortname;
+    public String getShortName() {
+        return shortName;
     }
 
-    public void setShortname(String shortname) {
-        this.shortname = shortname;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public String getDescription() {
@@ -69,11 +83,11 @@ public class Dependency implements Parcelable {
     }
 
     public String getUriImage() {
-        return UriImage;
+        return uriImage;
     }
 
     public void setUriImage(String uriImage) {
-        UriImage = uriImage;
+        this.uriImage = uriImage;
     }
 
     public String getInventory() {
@@ -97,9 +111,22 @@ public class Dependency implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeString(shortname);
+        dest.writeString(shortName);
         dest.writeString(description);
         dest.writeString(inventory);
-        dest.writeString(UriImage);
+        dest.writeString(uriImage);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dependency that = (Dependency) o;
+        return shortName.equals(that.shortName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shortName);
     }
 }

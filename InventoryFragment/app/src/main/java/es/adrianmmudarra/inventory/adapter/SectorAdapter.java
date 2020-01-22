@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Sector;
-import es.adrianmmudarra.inventory.data.repository.SectorRepository;
-import es.adrianmmudarra.inventory.layout.sector.SectorListView;
 
 public class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.SectorAdapterViewHolder> {
 
@@ -38,7 +36,7 @@ public class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.SectorAdap
     public void onBindViewHolder(@NonNull SectorAdapterViewHolder holder, int position) {
         holder.ivIcon.setLetter(sectors.get(position).getUriImage());
         holder.tvName.setText(sectors.get(position).getName());
-        holder.tvDependency.setText(sectors.get(position).getDependencia().getShortname());
+        holder.tvDependency.setText(sectors.get(position).getDependencia().getShortName());
 
         holder.bind(viewListener,sectors.get(position));
     }

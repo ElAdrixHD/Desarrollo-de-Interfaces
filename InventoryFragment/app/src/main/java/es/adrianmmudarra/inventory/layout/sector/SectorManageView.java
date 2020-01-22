@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
@@ -131,7 +132,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     }
 
     @Override
-    public void onSuccessLoadSpinner(ArrayList<Dependency> dependencies) {
+    public void onSuccessLoadSpinner(Collection<Dependency> dependencies) {
         arrayAdapter.clear();
         arrayAdapter.addAll(dependencies);
         arrayAdapter.notifyDataSetChanged();
