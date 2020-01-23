@@ -1,5 +1,9 @@
 package es.adrianmmudarra.inventory.layout.dependency;
 
+import androidx.room.OnConflictStrategy;
+
+import java.util.concurrent.ExecutionException;
+
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
 
@@ -21,9 +25,10 @@ public class DependencyManagePresenter implements DependencyManageContract.Prese
 
     @Override
     public void add(Dependency dependency) {
-        if (DependencyRepository.getInstance().add(dependency)){
+        try {
+            DependencyRepository.getInstance().add(dependency);
             view.onSuccess("Dependencia Añadida: "+ dependency.getShortName());
-        }else {
+        } catch (ExecutionException | InterruptedException e) {
             view.showError("No se puede añadir la dependencia.");
         }
     }

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.data.repository.DependencyRepository;
@@ -19,13 +20,10 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
     @Override
     public void delete(Dependency dependency) {
         if (DependencyRepository.getInstance().delete(dependency)){
-            if (!DependencyRepository.getInstance().getDependencies().isEmpty()){
-                view.onSuccessDelete();
-            }
-            else{
+            if (DependencyRepository.getInstance().getDependencies().isEmpty()){
                 view.showNoDependency();
-                view.onSuccessDelete();
             }
+            view.onSuccessDelete();
         }
         else {
             view.showError("No se ha podido eliminar la dependencia");
@@ -54,7 +52,11 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
 
     @Override
     public void restore(Dependency dependency) {
-        DependencyRepository.getInstance().add(dependency);
-        view.showData(DependencyRepository.getInstance().getDependencies());
+        try {
+            DependencyRepository.getInstance().add(dependency);
+            view.restore(dependency);
+        } catch (ExecutionException | InterruptedException e) {
+            view.showError("No ha sido posible recuperar la dependencia");
+        }
     }
 }

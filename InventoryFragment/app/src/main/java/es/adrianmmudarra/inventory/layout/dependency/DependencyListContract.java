@@ -14,6 +14,7 @@ public interface DependencyListContract {
         void showData(Collection<Dependency> dependencies);
         void onSuccessDelete();
 
+        void restore(Dependency dependency);
     }
 
     interface Presenter{

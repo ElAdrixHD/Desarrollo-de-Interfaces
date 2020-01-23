@@ -97,7 +97,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
             }
         };
 
-        adapter = new DependencyAdapter(listenerPresenter.getRepo());
+        adapter = new DependencyAdapter();
         adapter.setOnManageDependencyListener(listenerAdapter);
 
         recyclerDependency.setAdapter(adapter);
@@ -152,8 +152,8 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
     @Override
     public void showData(Collection<Dependency> dependencies) {
-        //adapter.clear();
-        //adapter.addAll(dependencies);
+        adapter.clear();
+        adapter.addAll(dependencies);
         adapter.notifyDataSetChanged();
         imageView.setVisibility(View.GONE);
         deleted = null;
@@ -161,11 +161,19 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
     @Override
     public void onSuccessDelete() {
-        //adapter.delete(deleted);
+        adapter.delete(deleted);
         adapter.notifyDataSetChanged();
         Snackbar.make(getView(),"Dependencia Eliminada",Snackbar.LENGTH_SHORT).setAction("ANULAR", v -> {
             listenerPresenter.restore(deleted);
         }).show();
+    }
+
+    @Override
+    public void restore(Dependency dependency) {
+        adapter.add(dependency);
+        adapter.notifyDataSetChanged();
+        imageView.setVisibility(View.GONE);
+
     }
 
     @Override

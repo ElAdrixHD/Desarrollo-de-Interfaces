@@ -7,8 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import es.adrianmmudarra.inventory.data.model.Dependency;

@@ -1,13 +1,13 @@
 package es.adrianmmudarra.inventory.data.repository;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
 
-import androidx.core.content.res.TypedArrayUtils;
+import androidx.room.OnConflictStrategy;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import es.adrianmmudarra.inventory.data.InventoryDatabase;
 import es.adrianmmudarra.inventory.data.dao.DependencyDao;
@@ -35,17 +35,14 @@ public class DependencyRepository {
     public List<Dependency> getDependencies(){
         try {
             return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public boolean add(final Dependency dependency) {
-        InventoryDatabase.databaseWriteExecutor.execute(() -> dependencyDao.insert(dependency));
-        return true;
+    public void add(final Dependency dependency) throws ExecutionException, InterruptedException {
+        InventoryDatabase.databaseWriteExecutor.submit(()-> dependencyDao.insert(dependency)).get();
     }
 
     public boolean edit(final Dependency dependency) {
@@ -83,4 +80,5 @@ public class DependencyRepository {
             return dependencyDao.getAll();
         }
     }
+
 }

@@ -22,8 +22,8 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
     private List<Dependency> list;
     private onManageDependencyListener listener;
 
-    public DependencyAdapter(List<Dependency> dependencies) {
-        list = dependencies;
+    public DependencyAdapter() {
+        list = new ArrayList<>();
     }
 
     @NonNull
@@ -61,6 +61,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.De
 
     public void delete(Dependency deleted) {
         this.list.remove(deleted);
+    }
+
+    public void add(Dependency dependency) {
+        this.list.add(dependency);
     }
 
     class DependencyViewHolder extends RecyclerView.ViewHolder{
