@@ -14,6 +14,8 @@ public interface SectorListContract{
         void onSuccessDelete(Sector sector);
         void showNoSectors(String error);
         void showDeleteMessage(String message);
+
+        void restore(Sector sector);
     }
 
     interface Presenter{

@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import es.adrianmmudarra.inventory.data.InventoryDatabase;
 import es.adrianmmudarra.inventory.data.dao.DependencyDao;
 import es.adrianmmudarra.inventory.data.model.Dependency;
+import es.adrianmmudarra.inventory.data.model.Sector;
 
 public class DependencyRepository {
     private static DependencyRepository instance;
@@ -68,11 +69,16 @@ public class DependencyRepository {
         return true;
     }
 
-    public int getPositionDependency(Dependency dependency) {
-        List<Dependency> list = dependencyDao.getAll();
+    public int getPositionDependency(String dependency) {
+        List<Dependency> list = null;
+        try {
+            list =  InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         int pos = 0;
         for (Dependency d: list) {
-            if (d.equals(dependency)){
+            if (d.getShortName().equals(dependency)){
                 return pos;
             }
             pos++;

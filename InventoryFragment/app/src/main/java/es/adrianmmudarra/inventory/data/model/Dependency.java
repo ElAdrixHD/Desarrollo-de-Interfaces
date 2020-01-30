@@ -100,7 +100,7 @@ public class Dependency implements Parcelable {
 
     @Override
     public String toString() {
-        return name;
+        return shortName;
     }
 
     @Override

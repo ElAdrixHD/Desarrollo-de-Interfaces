@@ -10,12 +10,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import es.adrianmmudarra.inventory.data.dao.DependencyDao;
+import es.adrianmmudarra.inventory.data.dao.SectorDao;
 import es.adrianmmudarra.inventory.data.model.Dependency;
+import es.adrianmmudarra.inventory.data.model.Sector;
 
-@Database(entities = {Dependency.class}, version = 1, exportSchema = false)
+@Database(entities = {Dependency.class, Sector.class}, version = 2, exportSchema = false)
 public abstract class InventoryDatabase extends RoomDatabase {
 
     public abstract DependencyDao dependencyDao();
+    public abstract SectorDao sectorDao();
 
     private static volatile InventoryDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

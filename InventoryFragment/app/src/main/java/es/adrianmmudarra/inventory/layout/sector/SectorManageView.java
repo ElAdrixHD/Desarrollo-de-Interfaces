@@ -1,10 +1,14 @@
 package es.adrianmmudarra.inventory.layout.sector;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,10 +24,12 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import es.adrianmmudarra.inventory.R;
 import es.adrianmmudarra.inventory.data.model.Dependency;
 import es.adrianmmudarra.inventory.data.model.Sector;
+import es.adrianmmudarra.inventory.layout.InventoryApplication;
 
 public class SectorManageView extends Fragment implements SectorManageContract.View{
 
@@ -38,7 +44,11 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     private SectorManageContract.Presenter presenter;
 
     private ArrayAdapter<Dependency> arrayAdapter;
-    private Dependency dependency;
+    private String dependency;
+    private static AtomicInteger atomicInteger = new AtomicInteger();
+
+    private static final int ID_NOTIFICATION_CREATE = 326;
+    private static final int ID_NOTIFICATION_EDIT = 327;
 
     public SectorManageView() {
     }
@@ -121,7 +131,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         sector.setName(tiledName.getText().toString());
         sector.setShortname(tiledShort.getText().toString());
         sector.setDescription(tiledDesc.getText().toString());
-        sector.setDependencia((Dependency) spinner.getSelectedItem());
+        sector.setDependencia(spinner.getSelectedItem().toString());
         return sector;
     }
 
@@ -193,6 +203,46 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
     @Override
     public void onSuccess(String message) {
+        activityListener.onSave();
+    }
+
+    @Override
+    public void onSuccess(String message, Sector sector) {
+        Intent intent = new Intent(getActivity(), SectorActivity.class);
+        intent.putExtra("NOTIFICACION", true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Sector.TAG,sector);
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(),atomicInteger.getAndIncrement(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (message.equals("Sector Añadido: "+sector.getShortname())){
+                Notification.Builder builder = new Notification.Builder(getContext(), InventoryApplication.CHANNEL_ID)
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.mipmap.ic_inventory_launcher)
+                        .setContentText(message)
+                        .setContentTitle("INVENTORY")
+                        .setContentIntent(pendingIntent);
+
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                notificationManagerCompat.notify(ID_NOTIFICATION_CREATE, builder.build());
+            }
+            if (message.equals("Sector Editado: "+sector.getShortname())){
+                Notification.Builder builder = new Notification.Builder(getContext(),InventoryApplication.CHANNEL_ID)
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.mipmap.ic_inventory_launcher)
+                        .setContentText(message)
+                        .setContentTitle("INVENTORY")
+                        .setContentIntent(pendingIntent);
+
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                notificationManagerCompat.notify(ID_NOTIFICATION_EDIT, builder.build());
+            }
+
+        }
+
         activityListener.onSave();
     }
 

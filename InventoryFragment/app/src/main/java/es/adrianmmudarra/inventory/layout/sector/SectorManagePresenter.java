@@ -31,8 +31,8 @@ public class SectorManagePresenter implements SectorManageContract.Presenter {
 
     @Override
     public void addSector(Sector sector) {
-        if (SectorRepository.getInstance().addSector(sector)){
-            view.onSuccess(null);
+        if (SectorRepository.getInstance().addSector(sector) != -1) {
+            view.onSuccess("Sector Añadido: "+sector.getShortname(), sector);
         }
         else {
             view.showError("No se ha podido añadir el sector");
@@ -42,7 +42,7 @@ public class SectorManagePresenter implements SectorManageContract.Presenter {
     @Override
     public void editSector(Sector sector) {
         if (SectorRepository.getInstance().edit(sector)){
-            view.onSuccess(null);
+            view.onSuccess("Sector Editado: "+sector.getShortname(), sector);
         }
         else {
             view.showError("No se ha podido editar el sector");
@@ -50,7 +50,7 @@ public class SectorManagePresenter implements SectorManageContract.Presenter {
     }
 
     @Override
-    public int getPositionDependency(Dependency dependency) {
+    public int getPositionDependency(String dependency) {
         return DependencyRepository.getInstance().getPositionDependency(dependency);
 
     }

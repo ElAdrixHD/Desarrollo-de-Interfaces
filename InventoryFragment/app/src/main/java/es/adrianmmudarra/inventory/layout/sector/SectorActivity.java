@@ -23,6 +23,14 @@ public class SectorActivity extends BaseActivity implements SectorListView.OnSec
         initialice();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent().getBooleanExtra("NOTIFICACION", false)){
+            onAddEditSector(getIntent().getExtras().getParcelable(Sector.TAG));
+        }
+    }
+
     private void initialice() {
         sectorListView = (SectorListView) getSupportFragmentManager().findFragmentByTag(SectorListView.TAG);
         if (sectorListView == null){

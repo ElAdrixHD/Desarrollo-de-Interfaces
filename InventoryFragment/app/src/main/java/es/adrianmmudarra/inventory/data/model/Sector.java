@@ -3,19 +3,39 @@ package es.adrianmmudarra.inventory.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import static androidx.room.ForeignKey.CASCADE;
+import static androidx.room.ForeignKey.RESTRICT;
+
+@Entity(foreignKeys = @ForeignKey(entity = Dependency.class,
+        parentColumns = "shortName",
+        childColumns = "dependencia",
+        onDelete = CASCADE))
 public class Sector implements Parcelable {
 
+    @Ignore
     public static final String TAG = "Sector";
+    @NonNull
     private String name;
+    @PrimaryKey
+    @NonNull
     private String shortname;
+    @NonNull
     private String description;
-    private Dependency dependencia;
+    @NonNull
+    private String dependencia;
     private String uriImage;
 
+    @Ignore
     public Sector() {
     }
 
-    public Sector(String name, String shortname, String description, Dependency dependencia, String uriImage) {
+    public Sector(String name, String shortname, String description, String dependencia, String uriImage) {
         this.name = name;
         this.shortname = shortname;
         this.description = description;
@@ -23,11 +43,12 @@ public class Sector implements Parcelable {
         this.uriImage = uriImage;
     }
 
+    @Ignore
     protected Sector(Parcel in) {
         name = in.readString();
         shortname = in.readString();
         description = in.readString();
-        dependencia = in.readParcelable(Dependency.class.getClassLoader());
+        dependencia = in.readString();
         uriImage = in.readString();
     }
 
@@ -67,11 +88,11 @@ public class Sector implements Parcelable {
         this.description = description;
     }
 
-    public Dependency getDependencia() {
+    public String getDependencia() {
         return dependencia;
     }
 
-    public void setDependencia(Dependency dependencia) {
+    public void setDependencia(String dependencia) {
         this.dependencia = dependencia;
     }
 
@@ -93,7 +114,7 @@ public class Sector implements Parcelable {
         dest.writeString(name);
         dest.writeString(shortname);
         dest.writeString(description);
-        dest.writeParcelable(dependencia, flags);
+        dest.writeString(dependencia);
         dest.writeString(uriImage);
     }
 }

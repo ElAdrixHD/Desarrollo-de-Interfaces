@@ -36,7 +36,7 @@ public class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.SectorAdap
     public void onBindViewHolder(@NonNull SectorAdapterViewHolder holder, int position) {
         holder.ivIcon.setLetter(sectors.get(position).getUriImage());
         holder.tvName.setText(sectors.get(position).getName());
-        holder.tvDependency.setText(sectors.get(position).getDependencia().getShortName());
+        holder.tvDependency.setText(sectors.get(position).getShortname());
 
         holder.bind(viewListener,sectors.get(position));
     }
@@ -60,6 +60,10 @@ public class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.SectorAdap
 
     public void deleteSector(Sector sector) {
         this.sectors.remove(sector);
+    }
+
+    public void add(Sector sector) {
+        this.sectors.add(sector);
     }
 
     public class SectorAdapterViewHolder extends RecyclerView.ViewHolder {

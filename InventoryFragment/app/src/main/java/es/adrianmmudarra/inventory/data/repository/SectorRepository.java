@@ -1,13 +1,16 @@
 package es.adrianmmudarra.inventory.data.repository;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import es.adrianmmudarra.inventory.data.InventoryDatabase;
+import es.adrianmmudarra.inventory.data.dao.SectorDao;
 import es.adrianmmudarra.inventory.data.model.Sector;
 
 public class SectorRepository {
     private static SectorRepository INSTANCE;
 
-    private ArrayList<Sector> sectors;
+    private SectorDao sectorDao;
 
     public static SectorRepository getInstance(){
         if (INSTANCE == null){
@@ -17,39 +20,37 @@ public class SectorRepository {
     }
 
     public SectorRepository() {
-        sectors = new ArrayList<>();
-        initialiceData();
-    }
-
-    private void initialiceData() {
-        this.sectors.add(new Sector("Sector 1", "SC_1", "Sector_Desc_1",DependencyRepository.getInstance().getDependencies().get(1),"1"));
-        this.sectors.add(new Sector("Sector 2", "SC_2", "Sector_Desc_2",DependencyRepository.getInstance().getDependencies().get(2),"2"));
-        this.sectors.add(new Sector("Sector 3", "SC_3", "Sector_Desc_3",DependencyRepository.getInstance().getDependencies().get(3),"3"));
-        this.sectors.add(new Sector("Sector 4", "SC_4", "Sector_Desc_4",DependencyRepository.getInstance().getDependencies().get(4),"4"));
-        this.sectors.add(new Sector("Sector 5", "SC_5", "Sector_Desc_5",DependencyRepository.getInstance().getDependencies().get(5),"5"));
+        sectorDao = InventoryDatabase.getDatabase().sectorDao();
     }
 
     public ArrayList<Sector> getSectors(){
-        return this.sectors;
+        try {
+            return (ArrayList<Sector>) InventoryDatabase.databaseWriteExecutor.submit(() -> sectorDao.getAll()).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public boolean addSector(Sector sector){
-        return this.sectors.add(sector);
+    public long addSector(Sector sector){
+        long result = 0;
+        try {
+            result = InventoryDatabase.databaseWriteExecutor.submit(()->sectorDao.insert(sector)).get();
+        } catch (ExecutionException | InterruptedException e) {
+            result = -1;
+        }finally {
+            return result;
+        }
     }
 
     public boolean removeSector(Sector sector){
-        return this.sectors.remove(sector);
+        InventoryDatabase.databaseWriteExecutor.execute(()->sectorDao.delete(sector));
+        return true;
     }
 
     public boolean edit(Sector sector) {
-        for (Sector it : sectors) {
-            if (it.getShortname().equals(sector.getShortname())) {
-                it.setName(sector.getName());
-                it.setDescription(sector.getDescription());
-                return true;
-            }
-        }
-        return false;
+        InventoryDatabase.databaseWriteExecutor.execute(()->sectorDao.update(sector));
+        return true;
     }
 
 }

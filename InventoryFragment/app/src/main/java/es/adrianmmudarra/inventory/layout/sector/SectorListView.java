@@ -55,6 +55,7 @@ public class SectorListView extends Fragment implements SectorListContract.View,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -143,7 +144,6 @@ public class SectorListView extends Fragment implements SectorListContract.View,
         sectorAdapter.clear();
         sectorAdapter.addAll(sectors);
         sectorAdapter.notifyDataSetChanged();
-        deleted = null;
     }
 
     @Override
@@ -160,6 +160,13 @@ public class SectorListView extends Fragment implements SectorListContract.View,
     @Override
     public void showDeleteMessage(String message) {
         Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).setAction(android.R.string.cancel, v -> presenter.undoDelete(deleted)).show();
+    }
+
+    @Override
+    public void restore(Sector sector) {
+        sectorAdapter.add(sector);
+        sectorAdapter.notifyDataSetChanged();
+        deleted = null;
     }
 
     @Override

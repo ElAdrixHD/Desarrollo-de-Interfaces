@@ -25,6 +25,8 @@ public interface SectorManageContract {
 
         void showDescriptionEmptyError(String s);
 
+        void onSuccess(String message, Sector sector);
+
         void clearDescriptionError();
 
     }
@@ -35,6 +37,6 @@ public interface SectorManageContract {
         void addSector(Sector sector);
         void editSector(Sector sector);
 
-        int getPositionDependency(Dependency dependency);
+        int getPositionDependency(String dependency);
     }
 }
