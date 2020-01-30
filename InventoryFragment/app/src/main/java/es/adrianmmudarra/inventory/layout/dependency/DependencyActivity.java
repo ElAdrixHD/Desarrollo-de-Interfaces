@@ -20,6 +20,14 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
         initialize();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent().getBooleanExtra("NOTIFICACION", false)){
+            onManageDependency(getIntent().getExtras().getParcelable(Dependency.TAG));
+        }
+    }
+
     private void initialize() {
         setTitle("Listado de dependencias");
         dependencyListView = (DependencyListView)getSupportFragmentManager().findFragmentByTag(DependencyListView.TAG);

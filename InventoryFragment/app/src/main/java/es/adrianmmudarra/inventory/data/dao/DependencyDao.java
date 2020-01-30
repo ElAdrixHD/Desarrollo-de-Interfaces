@@ -14,7 +14,7 @@ import es.adrianmmudarra.inventory.data.model.Dependency;
 @Dao
 public interface DependencyDao {
     @Insert
-    void insert(Dependency dependency);
+    long insert(Dependency dependency);
 
     @Delete
     void delete(Dependency dependency);

@@ -41,8 +41,15 @@ public class DependencyRepository {
         return null;
     }
 
-    public void add(final Dependency dependency) throws ExecutionException, InterruptedException {
-        InventoryDatabase.databaseWriteExecutor.submit(()-> dependencyDao.insert(dependency)).get();
+    public long add(final Dependency dependency){
+        long result = 0;
+        try {
+            result = InventoryDatabase.databaseWriteExecutor.submit(()->dependencyDao.insert(dependency)).get();
+        } catch (ExecutionException | InterruptedException e) {
+            result = -1;
+        }finally {
+            return result;
+        }
     }
 
     public boolean edit(final Dependency dependency) {

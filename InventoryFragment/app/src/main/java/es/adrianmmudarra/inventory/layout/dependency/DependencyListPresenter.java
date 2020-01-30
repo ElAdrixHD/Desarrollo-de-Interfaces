@@ -52,11 +52,10 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
 
     @Override
     public void restore(Dependency dependency) {
-        try {
-            DependencyRepository.getInstance().add(dependency);
+        if (DependencyRepository.getInstance().add(dependency) != -1 ){
             view.restore(dependency);
-        } catch (ExecutionException | InterruptedException e) {
-            view.showError("No ha sido posible recuperar la dependencia");
+        }else {
+            view.showError("No se ha podido recuperar la dependencia");
         }
     }
 }

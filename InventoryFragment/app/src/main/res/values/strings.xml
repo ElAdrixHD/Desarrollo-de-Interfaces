@@ -39,4 +39,6 @@
     <string name="info">Info</string>
     <string name="description">Description</string>
     <string name="map">Map</string>
+    <string name="channel_name">Inventory</string>
+    <string name="channel_description">inventory_desc</string>
 </resources>
